@@ -1,14 +1,59 @@
-<div *ngFor="let question of userList" class="rowClass row justify-content-center d-flex">
-    <div class="col-12 d-flex justify-content-center mb-4">
-      <div class="card" style="width: 60rem;">
-        <div class="card-body">
-          <h5 class="card-title">{{ question.name }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ question.role }}</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+<div class="container">
+
+  <div class="rowClass row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8 mb-4">
+      <input
+      class="form-control form-control-dark"
+      type="text"
+      placeholder="Search"
+      aria-label="Search"
+      [(ngModel)] = "searchBy"
+      (input) = "triggerFunction()"
+    />
+    </div>
+    
+  </div>
+
+  <div class="row justify-content-center">
+      <div *ngFor="let user of userList" class="col-12 col-md-10 col-lg-8">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex">
+          <img class="rounded-circle me-3" src="http://localhost:5000/uploads/{{user.profile_image}}" alt="" style="width: 60px; height: 60px;">
+          <div>
+            <h5 class="card-title">{{ user.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ user.role }}</h6>
+          </div>
         </div>
+        
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
       </div>
     </div>
   </div>
+
+  </div>
+
   
+
+  <div class="pagMain row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center">
+      <div *ngFor="let i of totalPageNumberArray">
+        <button class="btn btn-dark me-2" type="button" (click)="changePageNumber(i)">1</button>
+      </div>
+
+      <div class="align-items-center d-flex">
+        <p style="margin: 0; margin-right: 4px">Per Page:</p>
+        <select [(ngModel)]="limit" (change) = "triggerFunction()">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+</div>

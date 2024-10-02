@@ -22,8 +22,8 @@ export class GetRequestService {
     );
   }
 
-  getUsers():Observable<UserResponse>{
-    return this.http.get<UserResponse>(this.path + "users").pipe(
+  getUsers(page:number=1,limit:number=5,searchTerm:string=""):Observable<UserResponse>{
+    return this.http.get<UserResponse>(this.path + `users?page=${page}&limit=${limit}&search=${searchTerm}`).pipe(
       catchError(this.handleError)
     );
   }
