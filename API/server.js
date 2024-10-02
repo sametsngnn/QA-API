@@ -4,10 +4,10 @@ const connectDatabase = require("./helpers/database/connectDatabase")
 const routers = require("./routers")
 const customErrorHandler = require("./middlewares/errors/customErrorHandler")
 const path = require("path")
-
+const cors = require('cors');
 
 const app = express()
-
+app.use(cors());
 // Express - Body Middleware
 app.use(express.json())
 

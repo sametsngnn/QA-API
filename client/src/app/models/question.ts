@@ -1,6 +1,5 @@
-import { Answer } from "./answer";
-import { User } from "./user";
-
+import { Answer } from './answer';
+import { User } from './user';
 
 export class Question {
   _id!: string;
@@ -21,6 +20,10 @@ export class QuestionResponse {
   count: number;
   pagination: {
     next: {
+      page: number;
+      limit: number;
+    };
+    previous: {
       page: number;
       limit: number;
     };
