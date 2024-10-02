@@ -1,0 +1,13 @@
+<div *ngIf="isLoggedIn; else notLoggedIn">
+    <h2>Hoş geldiniz!</h2>
+    <p>Profilinizi düzenlemek için <a routerLink="/profile-edit">buraya tıklayın</a>.</p>
+  </div>
+
+
+  <ng-template #notLoggedIn>
+    <h2>Giriş Yapmadınız!</h2>
+    <p>Giriş yapmak için <a routerLink="/login">buraya tıklayın</a>.</p>
+  </ng-template>
+  
+
+  

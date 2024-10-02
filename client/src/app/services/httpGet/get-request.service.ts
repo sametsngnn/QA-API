@@ -14,8 +14,6 @@ export class GetRequestService {
   path = 'http://localhost:5000/api/';
 
 
-  // /api/questions?page=${page}&limit=${limit}&sortBy=${sort}&search=${searchTerm}`
-
   getQuestions(page:number=1,limit:number=5,sort:string="newest",searchTerm:string=""): Observable<QuestionResponse> {
     return this.http.get<QuestionResponse>(this.path + `questions?page=${page}&limit=${limit}&sortBy=${sort}&search=${searchTerm}`).pipe(
       catchError(this.handleError)

@@ -11,6 +11,9 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { FormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { CookieService } from 'ngx-cookie-service';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit/profile-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { FormsModule } from '@angular/forms';
     UsersComponent,
     LoginComponent,
     RegisterComponent,
-    AdminComponent
+    AdminComponent,
+    ForgotPasswordComponent,
+    ProfileEditComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
