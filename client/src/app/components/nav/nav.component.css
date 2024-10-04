@@ -1,4 +1,7 @@
-
+.dropdownNone {
+  list-style-type: none; /* Liste işaretlerini kaldırır */
+  /* Varsayılan dış boşluğu kaldırır */
+}
   .form-control-dark {
     color: #fff;
     background-color: var(--bs-dark);
@@ -23,3 +26,12 @@
   .dropdown-toggle {
     outline: 0;
   }
+
+  .hoverText{
+    color: white;
+  }
+
+  .hoverText:hover {
+    color: black;
+  }
+

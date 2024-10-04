@@ -26,6 +26,12 @@ export class GetRequestService {
     );
   }
 
+  getUserById(id:number):Observable<any>{
+    return this.http.get(this.path + "users/"+ id).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

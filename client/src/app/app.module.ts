@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit/profile-edit.component';
+import { AdminGuard } from './guards/adminGuard/admin.guard';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { ProfileEditComponent } from './components/profile-edit/profile-edit/pro
   ],
   providers: [
     provideClientHydration(),
-    CookieService
+    CookieService,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

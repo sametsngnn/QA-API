@@ -24,8 +24,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user).subscribe(
       response => {
         this.authService.setToken(response.access_token);
+
+        this.authService.setUserProfile(response);
+
+        
         this.alertifyService.success("Logged In Successfully")
         this.router.navigate(['/questions']);
+        this.ngOnInit()
       },
       error => {
         console.error("Hata: ", error)

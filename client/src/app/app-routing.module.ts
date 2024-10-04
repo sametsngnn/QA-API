@@ -7,6 +7,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit/profile-edit.component';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { AdminGuard } from './guards/adminGuard/admin.guard';
 
 
 const routes: Routes = [
@@ -15,9 +17,9 @@ const routes: Routes = [
   {path:'',redirectTo : 'questions',pathMatch:'full'},
   {path:'login',component : LoginComponent},
   {path:'register',component : RegisterComponent},
-  {path:'admin',component : AdminComponent},
+  {path:'admin',component : AdminComponent,canActivate: [AdminGuard]},
   {path:'password-reset',component : ForgotPasswordComponent},
-  {path:'edit-profile',component : ProfileEditComponent}
+  {path:'edit-profile',component : ProfileEditComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
