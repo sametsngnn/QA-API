@@ -41,7 +41,7 @@
   <div class="pagMain row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center">
       <div *ngFor="let i of totalPageNumberArray">
-        <button class="btn btn-dark me-2" type="button" (click)="changePageNumber(i)">1</button>
+        <button class="btn btn-dark me-2" type="button" (click)="changePageNumber(i)">{{i}}</button>
       </div>
 
       <div class="align-items-center d-flex">
