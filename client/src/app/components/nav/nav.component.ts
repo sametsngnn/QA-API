@@ -2,8 +2,9 @@ import { GetRequestService } from './../../services/httpGet/get-request.service'
 import { AlertifyService } from './../../services/alertify/alertify.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { catchError, map, switchMap } from 'rxjs';
+import {  Subject, switchMap } from 'rxjs';
 import { createPopper } from '@popperjs/core';
+import { LogoutService } from '../../services/logout/logout.service';
 
 
 
@@ -13,6 +14,9 @@ import { createPopper } from '@popperjs/core';
   styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
+
+  logoutEvent: Subject<void> = new Subject<void>();
+
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   userName: string;
@@ -21,7 +25,8 @@ export class NavComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private alertifyService: AlertifyService,
-    private getRequestService: GetRequestService
+    private getRequestService: GetRequestService,
+    private logoutService: LogoutService
   ) {}
 
   ngOnInit(): void {
@@ -56,5 +61,6 @@ export class NavComponent implements OnInit {
     this.authService.logout();
     this.alertifyService.error('Logged Out Successfully');
     this.isLoggedIn = false;
+    this.logoutService.emitLogout();
   }
 }

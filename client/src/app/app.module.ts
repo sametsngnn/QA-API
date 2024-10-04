@@ -15,6 +15,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit/profile-edit.component';
 import { AdminGuard } from './guards/adminGuard/admin.guard';
+import { LogoutService } from './services/logout/logout.service';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AdminGuard } from './guards/adminGuard/admin.guard';
   providers: [
     provideClientHydration(),
     CookieService,
-    AdminGuard
+    AdminGuard,
+    LogoutService
   ],
   bootstrap: [AppComponent]
 })

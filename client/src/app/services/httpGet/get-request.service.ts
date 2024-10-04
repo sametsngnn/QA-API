@@ -1,5 +1,6 @@
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { QuestionResponse } from '../../models/question';
 import { UserResponse } from '../../models/user';
@@ -10,9 +11,10 @@ import { UsersComponent } from '../../components/users/users.component';
 }
 )
 export class GetRequestService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private authService: AuthService) { }
   path = 'http://localhost:5000/api/';
 
+  
 
   getQuestions(page:number=1,limit:number=5,sort:string="newest",searchTerm:string=""): Observable<QuestionResponse> {
     return this.http.get<QuestionResponse>(this.path + `questions?page=${page}&limit=${limit}&sortBy=${sort}&search=${searchTerm}`).pipe(
@@ -30,6 +32,24 @@ export class GetRequestService {
     return this.http.get(this.path + "users/"+ id).pipe(
       catchError(this.handleError)
     );
+  }
+
+  likeAQuestion(id:string,active:boolean):Observable<any>{
+    const token = this.authService.getToken()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer: ${token}` // Header'a token'ı ekle
+    },);
+    if(active){
+      return this.http.get(this.path + "questions/"+ id + "/undo_like", { headers }).pipe(
+        catchError(this.handleError)
+      );
+    } else {
+      // Like
+      return this.http.get(this.path + "questions/"+ id + "/like", { headers }).pipe(
+      catchError(this.handleError)
+    );
+    }
+    
   }
 
   handleError(err: HttpErrorResponse) {

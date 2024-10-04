@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService,private alertifyService:AlertifyService) {
     const token = this.cookieService.get('token');
     if (token) {
-      this.loggedIn.next(true);  // Eğer token varsa oturum açılmış demektir
+      this.loggedIn.next(true);
     }
   }
 
@@ -50,10 +50,6 @@ export class AuthService {
     .pipe(
       catchError((error: HttpErrorResponse) => this.handleError(error)) // Hataları yakala
     ); // Header'ı isteğe ekle
-  }
-
-  getProfileWhoLoggedIn(){
-
   }
 
   isLoggedIn(): boolean {
