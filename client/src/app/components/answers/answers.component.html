@@ -24,23 +24,23 @@
 
         <div class="col-12 col-md-10 col-lg-8" *ngIf="answers?.length; else noAnswer">
             <div *ngFor="let answer of answers">
-                <div class="card mb-4">
+                <div class="card mb-4 answer-card">
                     <div class="card-body">
                         <div class="answerDiv">
                             <h6 class="card-subtitle mb-2 text-muted">
-                            {{ answer.content }}
-                        </h6>
-                        <div class="answerInf">
-                            <p class="text-muted">
-                                {{ answer.user?.name || "Loading..." }}
-                            </p>    
-                            <button class="btn btn-sm btn-dark">
-                                <i class="bi bi-hand-thumbs-up"></i> Like |
-                                {{ answer.likes.length }}
-                            </button>
+                                {{ answer.content }}
+                            </h6>
+                            <div class="answerInf">
+                                <p class="text-muted">{{ answer.user?.name || "Loading..." }}</p>  
+                                <div class="answerActions">
+                                    <button class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
+                                        <i class="bi bi-hand-thumbs-up" ></i> Like |
+                                        {{ answer.likes.length }}
+                                    </button>
+                                    <p class="text-muted">{{ timeAgo(answer.createdAt) }}</p>
+                                </div>
+                            </div>
                         </div>
-                        </div>
-                        
                     </div>
                 </div>
             </div>
@@ -49,10 +49,21 @@
         <ng-template #noAnswer>
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card mb-4">
-                    <div class="card-body">There is no question yet</div>
+                    <div class="card-body">There is no answer yet</div>
                 </div>
             </div>
         </ng-template>
+
+        <!-- Yorum Yapma Alanı -->
+        <div *ngIf="isLoggedIn" class="col-12 col-md-10 col-lg-8">
+            <h5 class="mt-4">Ask a Answer:</h5>
+            <form >
+                <div class="input-group mb-3">
+                    <textarea class="form-control" rows="3" required name="comment" placeholder="Write your comment here..."></textarea>
+                    <button class="btn btn-dark" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Answer -->

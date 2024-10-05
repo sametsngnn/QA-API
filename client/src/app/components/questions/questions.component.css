@@ -1,4 +1,4 @@
-.rowClass{
+.rowClass {
     padding-top: 20px;
 }
 
@@ -6,7 +6,7 @@
     margin-right: 2px;
 }
 
-.pagMain{
+.pagMain {
     margin-bottom: 20px;
 }
 
@@ -14,3 +14,53 @@
     color: rgb(255, 255, 255);
     background-color: rgb(0, 0, 0);
 }
+
+.input-group {
+    margin-bottom: 1rem; /* Giriş alanları arasında boşluk ekleme */
+}
+
+.answer-card {
+    transition: transform 0.2s; /* Kartların geçiş efektleri */
+}
+
+.answer-card:hover {
+    transform: scale(1.02); /* Üzerine gelindiğinde kartın büyümesi */
+}
+
+.question-card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soru kartlarına gölge ekleme */
+}
+
+.card-title {
+    font-weight: bold; /* Başlıkları kalın yapmak için */
+}
+
+.card-subtitle {
+    font-style: italic; /* Alt başlıkları italik yapmak için */
+}
+
+.card-text {
+    color: #555; /* Metin rengini daha açık yapmak için */
+}
+
+/* Soru sorma alanı stili */
+.question-form {
+    margin-top: 1rem; /* Form alanının üstüne boşluk ekleme */
+}
+
+.question-form input {
+    flex: 1; /* Giriş alanının genişlemesi */
+}
+
+.question-form button {
+    margin-left: 10px; /* Giriş alanı ile buton arasında boşluk */
+}
+input[type="text"],
+textarea {
+    resize: none; /* Textarea'nın boyutunu değiştirmeyi engelle */
+}
+
+input[type="text"] {
+    height: 38px; /* Arama çubuğunun boyutu */
+}
+

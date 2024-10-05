@@ -1,4 +1,4 @@
-.rowClass{
+.rowClass {
     padding-top: 20px;
 }
 
@@ -6,7 +6,7 @@
     margin-right: 2px;
 }
 
-.pagMain{
+.pagMain {
     margin-bottom: 20px;
 }
 
@@ -17,16 +17,47 @@
 
 .answerDiv {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
 }
-.answerDiv h6{
+
+.answerDiv h6 {
     margin: 0;
+    flex: 1; /* Eşit şekilde genişlet */
 }
 
 .answerInf {
-    display: block;
+    display: flex; /* Flex kullanarak isim ve butonu yan yana diz */
+    align-items: center;
 }
+
 .answerInf p {
     margin: 0;
+    margin-right: 10px; /* Buton ile isim arasında boşluk bırak */
+}
+
+.answerActions {
+    display: flex;
+    align-items: center; /* Buton ve zaman metnini yan yana hizala */
+}
+
+.answer-card {
+    transition: box-shadow 0.3s; /* Gölge geçişi ekle */
+}
+
+.answer-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Hover efekti için gölge */
+}
+
+.text-muted {
+    font-size: 0.9rem; /* Zaman metninin boyutunu küçült */
+}
+
+input[type="text"],
+textarea {
+    resize: none; /* Textarea'nın boyutunu değiştirmeyi engelle */
+}
+
+input[type="text"] {
+    height: 38px; /* Arama çubuğunun boyutu */
 }
