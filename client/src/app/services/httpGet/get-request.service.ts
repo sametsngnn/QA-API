@@ -52,6 +52,23 @@ export class GetRequestService {
     
   }
 
+  getAnswers(questionId: string):Observable<any>{
+    return this.http.get(this.path + "questions/" + questionId + "/answers").pipe(
+      catchError(this.handleError)
+    );
+  }
+  getAnswerDetails(questionId: string,answerId: string): Observable<any> {
+    return this.http.get(`${this.path}questions/${questionId}/answers/${answerId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getSingleQuestion(questionId:string):Observable<any>{
+    return this.http.get(this.path+"questions/"+ questionId).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

@@ -3,15 +3,36 @@
   <div class="rowClass row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8 mb-4">
       <div class="input-group">
-        <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search"
-          [(ngModel)]="filterText" (input)="triggerFunction()" />
-        <button class="btn btn-dark" type="button" value="most-answered" (click)="changeSort('most-answered')">
+        <input
+          class="form-control form-control-dark"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          [(ngModel)]="filterText"
+          (input)="triggerFunction()"
+        />
+        <button
+          class="btn btn-dark"
+          type="button"
+          value="most-answered"
+          (click)="changeSort('most-answered')"
+        >
           Most Answered
         </button>
-        <button class="btn btn-dark" type="button" value="most-liked" (click)="changeSort('most-liked')">
+        <button
+          class="btn btn-dark"
+          type="button"
+          value="most-liked"
+          (click)="changeSort('most-liked')"
+        >
           Most Liked
         </button>
-        <button class="btn btn-dark" type="button" value="newest" (click)="changeSort('newest')">
+        <button
+          class="btn btn-dark"
+          type="button"
+          value="newest"
+          (click)="changeSort('newest')"
+        >
           Newest
         </button>
       </div>
@@ -20,7 +41,10 @@
 
   <!-- Sorular -->
   <div class="row justify-content-center">
-    <div class="col-12 col-md-10 col-lg-8" *ngFor="let question of questionList">
+    <div
+      class="col-12 col-md-10 col-lg-8"
+      *ngFor="let question of questionList"
+    >
       <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">{{ question.title }}</h5>
@@ -28,18 +52,28 @@
             {{ question.user.name }}
           </h6>
           <p class="card-text">{{ question.content }}</p>
+          <p class="card-text">{{ question._id }}</p>
 
-          <button *ngIf="question.likes.includes(userId); else likeButton" class="btn btn-light me-2 likeButton"
-            (click)="likeOrUndoLikeQuestion(question._id,true)">
+          <button
+            *ngIf="question.likes.includes(userId); else likeButton"
+            class="btn btn-light me-2 likeButton"
+            (click)="likeOrUndoLikeQuestion(question._id, true)"
+          >
             Unlike | {{ question.likeCount }}
           </button>
           <ng-template #likeButton>
-            <button class="btn btn-light me-2" (click)="likeOrUndoLikeQuestion(question._id,false)"
-              [disabled]="!isLoggedIn">
+            <button
+              class="btn btn-light me-2"
+              (click)="likeOrUndoLikeQuestion(question._id, false)"
+              [disabled]="!isLoggedIn"
+            >
               Like | {{ question.likeCount }}
             </button>
           </ng-template>
-          <button class="btn btn-light">
+          <button
+            class="btn btn-light"
+            routerLink="/answers/{{ question._id }}"
+          >
             Answer | {{ question.answerCount }}
           </button>
         </div>
@@ -51,7 +85,11 @@
   <div class="pagMain row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center">
       <div *ngFor="let i of totalPageNumberArray">
-        <button class="btn btn-dark me-2" type="button" (click)="changePageNumber(i)">
+        <button
+          class="btn btn-dark me-2"
+          type="button"
+          (click)="changePageNumber(i)"
+        >
           {{ i }}
         </button>
       </div>

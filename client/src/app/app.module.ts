@@ -16,6 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit/profile-edit.component';
 import { AdminGuard } from './guards/adminGuard/admin.guard';
 import { LogoutService } from './services/logout/logout.service';
+import { AnswersComponent } from './components/answers/answers.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { LogoutService } from './services/logout/logout.service';
     RegisterComponent,
     AdminComponent,
     ForgotPasswordComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    AnswersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,59 @@
+<div class="container">
+    <!-- Search -->
+    <div class="rowClass row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 mb-4">
+            <div class="input-group">
+                <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Answers -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ questionTitle }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {{ questionOwner }}
+                    </h6>
+                    <p class="card-text">{{ questionContent }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-10 col-lg-8" *ngIf="answers?.length; else noAnswer">
+            <div *ngFor="let answer of answers">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="answerDiv">
+                            <h6 class="card-subtitle mb-2 text-muted">
+                            {{ answer.content }}
+                        </h6>
+                        <div class="answerInf">
+                            <p class="text-muted">
+                                {{ answer.user?.name || "Loading..." }}
+                            </p>    
+                            <button class="btn btn-sm btn-dark">
+                                <i class="bi bi-hand-thumbs-up"></i> Like |
+                                {{ answer.likes.length }}
+                            </button>
+                        </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noAnswer>
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">There is no question yet</div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- Answer -->
+</div>

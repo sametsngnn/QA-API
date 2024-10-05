@@ -1,0 +1,32 @@
+.rowClass{
+    padding-top: 20px;
+}
+
+.button {
+    margin-right: 2px;
+}
+
+.pagMain{
+    margin-bottom: 20px;
+}
+
+.likeButton {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+}
+
+.answerDiv {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.answerDiv h6{
+    margin: 0;
+}
+
+.answerInf {
+    display: block;
+}
+.answerInf p {
+    margin: 0;
+}
