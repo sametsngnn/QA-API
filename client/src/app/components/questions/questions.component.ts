@@ -36,10 +36,17 @@ export class QuestionsComponent implements OnInit {
   isLoggedIn: boolean = false;
   userId: string;
   questionId: string;
-  question = {
+  questionObject = {
     title: '',
     content: '',
   };
+  editedQuestion = {
+    title: '',
+    content: '',
+  };
+  isEditing: { [key: string]: boolean } = {};
+  originalQuestions: { title: string; content: string; _id: string }[] = [];
+
 
   @ViewChild(NavComponent) navComponent: NavComponent;
 
@@ -104,10 +111,10 @@ export class QuestionsComponent implements OnInit {
 
   askAQuestion() {
     this.postRequestService
-      .askQuestion(this.question)
+      .askQuestion(this.questionObject)
       .subscribe((data) => {
         this.ngOnInit();
-        this.question = {
+        this.questionObject = {
           title: '',
           content: '',
         };
@@ -115,7 +122,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   editAQuestion(questionId:string){
-    this.putRequestService.editQuestion(questionId,this.question).subscribe(data => {
+    this.putRequestService.editQuestion(questionId,this.editedQuestion).subscribe(data => {
       
     })
   }
@@ -142,4 +149,57 @@ export class QuestionsComponent implements OnInit {
   timeAgo(dateString: any): any {
     return timeAgo(dateString);
   }
+
+  toggleEditMode(questionId: string) {
+    const question = this.questionList.find(q => q._id === questionId);
+    if (question) {
+      if (question.title && question.content && question._id) {
+        const original = { title: question.title, content: question.content, _id: question._id };
+        const index = this.originalQuestions.findIndex(q => q._id === questionId);
+  
+        if (index === -1) {
+          this.originalQuestions.push(original);
+        }
+  
+        this.isEditing[questionId] = true;
+      } else {
+        console.error("Question properties are undefined:", question);
+      }
+    }
+  }
+  
+  
+
+  saveQuestion(questionId: string) {
+    const question = this.questionList.find((q) => q._id === questionId);
+    if (question) {
+      this.isEditing[questionId] = false;
+      this.putRequestService
+        .editQuestion(questionId, { title: question.title, content: question.content })
+        .subscribe(() => {
+          this.isEditing[questionId] = false;
+          this.ngOnInit();
+        });
+    }
+  }
+
+  cancelEdit(questionId: string) {
+    const originalQuestion = this.originalQuestions.find(q => q._id === questionId);
+    if (originalQuestion) {
+      this.questionList = this.questionList.map(q => 
+        q._id === questionId 
+          ? { 
+              ...q,
+              title: originalQuestion.title, 
+              content: originalQuestion.content 
+            } 
+          : q
+      );
+      this.originalQuestions = this.originalQuestions.filter(q => q._id !== questionId); 
+    }
+    this.isEditing[questionId] = false; 
+  }
+  
+  
+  
 }
