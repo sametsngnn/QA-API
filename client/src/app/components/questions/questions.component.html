@@ -1,5 +1,5 @@
 <div class="container">
-  <!-- Arama Çubuğu -->
+  <!-- Search Bar -->
   <div class="rowClass row justify-content-center mb-4">
     <div class="col-12 col-md-10 col-lg-8">
       <div class="input-group">
@@ -18,49 +18,66 @@
     </div>
   </div>
 
-  <!-- Soru Sorma Alanı -->
-  <div class="rowClass row justify-content-center mb-2">
+  <!-- Ask a question -->
+  <div *ngIf="isLoggedIn" class="rowClass row justify-content-center mb-2">
     <div class="col-12 col-md-10 col-lg-8">
       <h5 class="mb-2">Ask a Question:</h5>
-      <form>
+      <form (submit)="askAQuestion()">
+        <textarea [(ngModel)]="askedQuestion.title" class="form-control" rows="1" placeholder="Enter your question title" required name="questionTitle"></textarea>
         <div class="input-group">
-          <textarea class="form-control" rows="3" placeholder="Enter your question" required name="question"></textarea>
+          <textarea [(ngModel)]="askedQuestion.content" class="form-control" rows="3" placeholder="Enter your question content" required name="questionContent"></textarea>
           <button class="btn btn-dark" type="submit">Submit</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Sorular -->
+  <!-- Questions -->
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8" *ngFor="let question of questionList">
       <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">{{ question.title }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">
-            {{ question.user.name }}
+            {{ question.user?.name }}
           </h6>
           <p class="card-text">{{ question.content }}</p>
 
-          <button *ngIf="question.likes.includes(userId); else likeButton" class="btn btn-light me-2 likeButton"
-            (click)="likeOrUndoLikeQuestion(question._id, true)">
-            Unlike | {{ question.likeCount }}
-          </button>
-          <ng-template #likeButton>
-            <button class="btn btn-light me-2" (click)="likeOrUndoLikeQuestion(question._id, false)"
-              [disabled]="!isLoggedIn">
-              Like | {{ question.likeCount }}
-            </button>
-          </ng-template>
-          <button class="btn btn-light" routerLink="/answers/{{ question._id }}">
-            Answer | {{ question.answerCount }}
-          </button>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button *ngIf="question.likes?.includes(userId); else likeButton" class="btn btn-light me-2 likeButton"
+                (click)="question._id && likeOrUndoLikeQuestion(question._id, true)">
+                Unlike | {{ question.likeCount }}
+              </button>
+              <ng-template #likeButton>
+                <button class="btn btn-light me-2" (click)="question._id && likeOrUndoLikeQuestion(question._id, false)"
+                  [disabled]="!isLoggedIn">
+                  Like | {{ question.likeCount }}
+                </button>
+              </ng-template>
+              <button class="btn btn-light" routerLink="/answers/{{ question._id }}">
+                Answer | {{ question.answerCount }}
+              </button>
+            </div>
+            <div class="rightSide">
+              
+              <div *ngIf=" question.user && question.user._id == userId">
+                              <button class="btn btn-dark" (click)="question._id && deleteOwnQuestion(question._id)">
+                                Delete
+                              </button>
+                              <button class="btn btn-dark">
+                                Edit
+                              </button>
+              </div>
+              <p class="text-muted mb-0">{{ timeAgo(question.createdAt) }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Sayfalama -->
+  <!-- Pagination -->
   <div class="pagMain row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center">
       <div *ngFor="let i of totalPageNumberArray">

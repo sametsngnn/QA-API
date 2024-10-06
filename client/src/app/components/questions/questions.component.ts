@@ -1,10 +1,14 @@
+import { PutRequestService } from './../../services/httpPut/put-request.service';
+import { DeleteRequestService } from './../../services/httpDelete/delete-request.service';
+import { PostRequestService } from './../../services/httpPost/post-request.service';
 import { LogoutService } from './../../services/logout/logout.service';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GetRequestService } from './../../services/httpGet/get-request.service';
 import { QuestionResponse, Question } from '../../models/question';
 import { AuthService } from '../../services/auth/auth.service';
 import { switchMap } from 'rxjs';
 import { NavComponent } from '../nav/nav.component';
+import { timeAgo } from '../../utilities/date';
 
 @Component({
   selector: 'app-questions',
@@ -15,7 +19,10 @@ export class QuestionsComponent implements OnInit {
   constructor(
     private getRequestService: GetRequestService,
     private authService: AuthService,
-    private logoutService: LogoutService
+    private logoutService: LogoutService,
+    private postRequestService: PostRequestService,
+    private deleteRequestService: DeleteRequestService,
+    private putRequestService:PutRequestService
   ) {}
   active: boolean = false;
   questionList: Question[];
@@ -29,6 +36,10 @@ export class QuestionsComponent implements OnInit {
   isLoggedIn: boolean = false;
   userId: string;
   questionId: string;
+  question = {
+    title: '',
+    content: '',
+  };
 
   @ViewChild(NavComponent) navComponent: NavComponent;
 
@@ -55,12 +66,11 @@ export class QuestionsComponent implements OnInit {
       .subscribe((userData: any) => {
         if (userData && userData.data) {
           this.userId = userData.data._id;
-          // console.log(this.userId)
         }
       });
 
     this.logoutService.logoutEvent.subscribe(() => {
-      this.onLogout(); // Olay tetiklendiğinde onLogout çağrılır
+      this.onLogout();
     });
   }
 
@@ -78,11 +88,10 @@ export class QuestionsComponent implements OnInit {
   }
 
   onLogout() {
-    this.userId= ""
-    this.initializeData() 
-    this.ngOnInit()
+    this.userId = '';
+    this.initializeData();
+    this.ngOnInit();
   }
-
 
   triggerFunction() {
     this.initializeData();
@@ -91,6 +100,30 @@ export class QuestionsComponent implements OnInit {
   changePageNumber(value: number) {
     this.page = value;
     this.triggerFunction();
+  }
+
+  askAQuestion() {
+    this.postRequestService
+      .askQuestion(this.question)
+      .subscribe((data) => {
+        this.ngOnInit();
+        this.question = {
+          title: '',
+          content: '',
+        };
+      });
+  }
+
+  editAQuestion(questionId:string){
+    this.putRequestService.editQuestion(questionId,this.question).subscribe(data => {
+      
+    })
+  }
+
+  deleteOwnQuestion(questionId: string) {
+    this.deleteRequestService.deleteQuestion(questionId).subscribe((data) => {
+      this.ngOnInit();
+    });
   }
 
   likeOrUndoLikeQuestion(questionID: string, liked: boolean) {
@@ -104,5 +137,9 @@ export class QuestionsComponent implements OnInit {
   changeSort(sortBy: string) {
     this.sort = sortBy;
     this.triggerFunction();
+  }
+
+  timeAgo(dateString: any): any {
+    return timeAgo(dateString);
   }
 }

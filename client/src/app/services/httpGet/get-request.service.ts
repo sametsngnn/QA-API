@@ -4,7 +4,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { catchError, Observable, throwError } from 'rxjs';
 import { QuestionResponse } from '../../models/question';
 import { UserResponse } from '../../models/user';
-import { UsersComponent } from '../../components/users/users.component';
 
 @Injectable({
   providedIn:'root'
@@ -37,7 +36,7 @@ export class GetRequestService {
   likeAQuestion(id:string,active:boolean):Observable<any>{
     const token = this.authService.getToken()
     const headers = new HttpHeaders({
-      'Authorization': `Bearer: ${token}` // Header'a token'ı ekle
+      'Authorization': `Bearer: ${token}`
     },);
     if(active){
       return this.http.get(this.path + "questions/"+ id + "/undo_like", { headers }).pipe(
@@ -74,7 +73,7 @@ export class GetRequestService {
     if (err.error instanceof ErrorEvent) {
       errorMessage = 'There is a error: ' + err.error.message;
     } else {
-      errorMessage = 'Sistemsel bir hata';
+      errorMessage = 'Systemic error';
     }
     return throwError(errorMessage);
   }

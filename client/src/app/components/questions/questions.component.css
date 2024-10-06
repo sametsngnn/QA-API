@@ -1,66 +1,107 @@
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
 .rowClass {
     padding-top: 20px;
 }
 
-.button {
-    margin-right: 2px;
-}
-
-.pagMain {
-    margin-bottom: 20px;
-}
-
-.likeButton {
-    color: rgb(255, 255, 255);
-    background-color: rgb(0, 0, 0);
-}
-
 .input-group {
-    margin-bottom: 1rem; /* Giriş alanları arasında boşluk ekleme */
+    margin-bottom: 1.5rem; 
 }
 
-.answer-card {
-    transition: transform 0.2s; /* Kartların geçiş efektleri */
+.btn-dark {
+    background-color: #333;
+    border: none; 
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
 }
 
-.answer-card:hover {
-    transform: scale(1.02); /* Üzerine gelindiğinde kartın büyümesi */
+.btn-dark:hover {
+    background-color: #000;
 }
 
-.question-card {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soru kartlarına gölge ekleme */
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.card {
+    border: 1px solid #e0e0e0; 
+    border-radius: 0.5rem; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    margin-bottom: 20px; 
+}
+
+.card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
 }
 
 .card-title {
-    font-weight: bold; /* Başlıkları kalın yapmak için */
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .card-subtitle {
-    font-style: italic; /* Alt başlıkları italik yapmak için */
+    font-size: 1rem; 
+    color: #888;
 }
 
-.card-text {
-    color: #555; /* Metin rengini daha açık yapmak için */
+/* Butonlar */
+.likeButton {
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 0.25rem;
 }
 
-/* Soru sorma alanı stili */
-.question-form {
-    margin-top: 1rem; /* Form alanının üstüne boşluk ekleme */
+.likeButton:hover {
+    background-color: #0056b3; 
 }
 
-.question-form input {
-    flex: 1; /* Giriş alanının genişlemesi */
+button[disabled] {
+    opacity: 0.6; 
 }
 
-.question-form button {
-    margin-left: 10px; /* Giriş alanı ile buton arasında boşluk */
+
+.input-group input {
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
 }
-input[type="text"],
+
+.input-group button {
+    border-radius: 0.25rem;
+}
+
 textarea {
-    resize: none; /* Textarea'nın boyutunu değiştirmeyi engelle */
+    resize: none;
+    border-radius: 0.25rem;
 }
 
-input[type="text"] {
-    height: 38px; /* Arama çubuğunun boyutu */
+.pagMain {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
+.pagMain button {
+    padding: 10px 20px;
+    border-radius: 0.25rem;
+    background-color: #333;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagMain button:hover {
+    background-color: #000;
+}
+
+.pagMain select {
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 0.25rem;
+}
+
+.rightSide {
+    justify-content: center;
+}

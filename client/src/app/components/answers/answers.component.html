@@ -31,7 +31,7 @@
                                 {{ answer.content }}
                             </h6>
                             <div class="answerInf">
-                                <p class="text-muted">{{ answer.user?.name || "Loading..." }}</p>  
+                                <p class="text-muted">{{ answer.user.name || "Loading..." }}</p>  
                                 <div class="answerActions">
                                     <button class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
                                         <i class="bi bi-hand-thumbs-up" ></i> Like |

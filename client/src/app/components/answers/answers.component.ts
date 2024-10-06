@@ -5,7 +5,8 @@ import { AlertifyService } from './../../services/alertify/alertify.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Answer } from '../../models/answer';
-import { Observable } from 'rxjs';
+import { timeAgo } from '../../utilities/date';
+import { time } from 'console';
 
 @Component({
   selector: 'app-answers',
@@ -73,31 +74,9 @@ export class AnswersComponent implements OnInit {
     }
   }
 
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-  }
-
   timeAgo(dateString: string): string {
-    const date = new Date(dateString);
-    const now = new Date();
-    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-
-    let interval = Math.floor(seconds / 31536000);
-    if (interval > 1) return `${interval}y`;
-
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) return `${interval}m`;
-
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) return `${interval}d`;
-
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) return `${interval}h`;
-
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) return `${interval}m`;
-
-    return 'now';
+    return timeAgo(dateString)
   }
+
+
 }
