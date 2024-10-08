@@ -37,6 +37,9 @@
                                         <i class="bi bi-hand-thumbs-up" ></i> Like |
                                         {{ answer.likes.length }}
                                     </button>
+                                    <button *ngIf="answer.user._id == userId" class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
+                                        <i class="bi bi-hand-thumbs-up" ></i> Delete
+                                    </button>
                                     <p class="text-muted">{{ timeAgo(answer.createdAt) }}</p>
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Answer } from '../../models/answer';
 import { timeAgo } from '../../utilities/date';
 import { time } from 'console';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-answers',
@@ -26,6 +27,7 @@ export class AnswersComponent implements OnInit {
   userOwnerAnswer: string;
   loadingUserDetails: boolean = true;
   isLoggedIn: boolean = false;
+  userId: string;
 
   constructor(
     private getRequestService: GetRequestService,
@@ -35,7 +37,29 @@ export class AnswersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.loggedIn$.subscribe(data => {
+    this.authService.loggedIn$
+    .pipe(
+      switchMap((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+        if (this.isLoggedIn) {
+          return this.authService.getProfile();
+        } else {
+          return [];
+        }
+      }),
+      switchMap((profileData: any) => {
+        if (profileData && profileData.data.id) {
+          this.userId = profileData.data.id
+          return this.getRequestService.getUserById(profileData.data.id);
+        }
+        return [];
+      })
+
+
+    )
+    
+    .subscribe(data => {
+      console.log(this.isLoggedIn)
       this.isLoggedIn = data
     })
     this.activatedRoute.params.subscribe((params) => {
