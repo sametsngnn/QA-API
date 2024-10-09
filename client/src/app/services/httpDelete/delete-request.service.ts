@@ -24,6 +24,18 @@ export class DeleteRequestService {
     );
   }
 
+  deleteAnswer(questionId:string = '',answerId:string){
+    const token = this.authService.getToken()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer: ${token}`
+    });
+    return this.http.delete(this.path+`questions/${questionId}/answers/${answerId}/delete`, { headers })
+    .pipe(
+      catchError(this.handleError)
+    );
+
+  }
+
 
 
   handleError(err: HttpErrorResponse) {

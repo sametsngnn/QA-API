@@ -1,3 +1,5 @@
+import { DeleteRequestService } from './../../services/httpDelete/delete-request.service';
+import { PostRequestService } from './../../services/httpPost/post-request.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { Question } from './../../models/question';
 import { GetRequestService } from './../../services/httpGet/get-request.service';
@@ -28,12 +30,17 @@ export class AnswersComponent implements OnInit {
   loadingUserDetails: boolean = true;
   isLoggedIn: boolean = false;
   userId: string;
+  answerObject = {
+    content: '',
+  };
 
   constructor(
     private getRequestService: GetRequestService,
     private activatedRoute: ActivatedRoute,
     private alertifyService: AlertifyService,
-    private authService: AuthService
+    private authService: AuthService,
+    private postRequestService:PostRequestService,
+    private deleteRequestService:DeleteRequestService
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +66,6 @@ export class AnswersComponent implements OnInit {
     )
     
     .subscribe(data => {
-      console.log(this.isLoggedIn)
       this.isLoggedIn = data
     })
     this.activatedRoute.params.subscribe((params) => {
@@ -83,7 +89,7 @@ export class AnswersComponent implements OnInit {
   async loadUserDetails(questionId: string) {
     const userRequests = this.answers.map((answer) =>
       this.getRequestService
-        .getAnswerDetails(questionId, answer._id)
+        .getAnswerDetails(questionId, answer?._id || '')
         .toPromise()
     );
     try {
@@ -100,6 +106,21 @@ export class AnswersComponent implements OnInit {
 
   timeAgo(dateString: string): string {
     return timeAgo(dateString)
+  }
+
+  answerAQuestion(){
+    this.postRequestService.answerQuestion(this.questionId,this.answerObject).subscribe(data => {
+      this.ngOnInit()
+      this.answerObject = {
+        content: ''
+      }
+    })
+  }
+
+  deleteOwnAnswer(answerId:string){
+    this.deleteRequestService.deleteAnswer(this.questionId,answerId).subscribe(data => {
+      this.ngOnInit()
+    })
   }
 
 

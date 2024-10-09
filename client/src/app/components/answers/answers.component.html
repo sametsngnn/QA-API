@@ -31,16 +31,16 @@
                                 {{ answer.content }}
                             </h6>
                             <div class="answerInf">
-                                <p class="text-muted">{{ answer.user.name || "Loading..." }}</p>  
+                                <p class="text-muted">{{ answer?.user?.name || "Loading..." }}</p>  
                                 <div class="answerActions">
                                     <button class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
                                         <i class="bi bi-hand-thumbs-up" ></i> Like |
-                                        {{ answer.likes.length }}
+                                        {{ answer.likes?.length || 0}}
                                     </button>
-                                    <button *ngIf="answer.user._id == userId" class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
+                                    <button *ngIf="answer?.user?._id == userId" (click)="deleteOwnAnswer(answer._id!)" class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
                                         <i class="bi bi-hand-thumbs-up" ></i> Delete
                                     </button>
-                                    <p class="text-muted">{{ timeAgo(answer.createdAt) }}</p>
+                                    <p class="text-muted">{{ timeAgo(answer?.createdAt || '') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -60,9 +60,9 @@
         <!-- Yorum Yapma Alanı -->
         <div *ngIf="isLoggedIn" class="col-12 col-md-10 col-lg-8">
             <h5 class="mt-4">Ask a Answer:</h5>
-            <form >
+            <form (submit)="answerAQuestion()">
                 <div class="input-group mb-3">
-                    <textarea class="form-control" rows="3" required name="comment" placeholder="Write your comment here..."></textarea>
+                    <textarea [(ngModel)]="answerObject.content" class="form-control" rows="3" required name="answer" placeholder="Write your answer here..."></textarea>
                     <button class="btn btn-dark" type="submit">Submit</button>
                 </div>
             </form>

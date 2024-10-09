@@ -4,13 +4,13 @@ import { Question } from './question';
 import { User } from './user';
 
 export class Answer {
-  _id: string;
-  content: string;
-  likes: [];
-  user: User;
-  question: Question;
-  createdAt!: string;
-  __v!: number;
+  _id?: string;
+  content?: string;
+  likes?: [];
+  user?: User;
+  question?: Question;
+  createdAt?: string;
+  __v?: number;
 }
 
 export class AnswerResponse {
