@@ -2,14 +2,12 @@ import { PutRequestService } from './../../services/httpPut/put-request.service'
 import { DeleteRequestService } from './../../services/httpDelete/delete-request.service';
 import { PostRequestService } from './../../services/httpPost/post-request.service';
 import { AuthService } from './../../services/auth/auth.service';
-import { Question } from './../../models/question';
 import { GetRequestService } from './../../services/httpGet/get-request.service';
 import { AlertifyService } from './../../services/alertify/alertify.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Answer } from '../../models/answer';
 import { timeAgo } from '../../utilities/date';
-import { time } from 'console';
 import { switchMap } from 'rxjs';
 
 @Component({
@@ -19,7 +17,7 @@ import { switchMap } from 'rxjs';
 })
 export class AnswersComponent implements OnInit {
 
-  
+
   answers: Answer[];
   questionId: string;
   questionOwner: string;
@@ -35,6 +33,7 @@ export class AnswersComponent implements OnInit {
   };
   isEditing: { [key: string]: boolean } = {};
   originalAnswer: { content: string; _id: string }[] = [];
+  active: boolean = false;
 
   constructor(
     private getRequestService: GetRequestService,
@@ -184,6 +183,14 @@ export class AnswersComponent implements OnInit {
       );
     }
     this.isEditing[answerId] = false;
+  }
+
+  likeOrUndoLikeAnswer(answerId:string ,liked: boolean) {
+    this.getRequestService
+      .likeAnswer(this.questionId,answerId, liked)
+      .subscribe((data) => {
+        this.ngOnInit();
+      });
   }
 
 

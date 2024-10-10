@@ -28,9 +28,19 @@
                             <div class="answerInf">
                                 <p class="text-muted">{{ answer?.user?.name || "Loading..." }}</p>
                                 <div class="answerActions">
-                                    <button class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
-                                        <i class="bi bi-hand-thumbs-up"></i> Like | {{ answer.likes?.length || 0 }}
+                                    <button *ngIf="answer.likes?.includes(answer?.user?._id || '') else likeButton"
+                                        class="btn btn-sm btn-dark likeButton"
+                                        (click)="likeOrUndoLikeAnswer(answer?._id || '', true)">
+                                        Unlike | {{ answer.likes?.length }}
                                     </button>
+                                    <ng-template #likeButton>
+                                        <button class="btn btn-sm btn-dark likeButton"
+                                            (click)="likeOrUndoLikeAnswer(answer?._id || '', false)"
+                                            [disabled]="!isLoggedIn">
+                                            Like | {{ answer.likes?.length }}
+                                        </button>
+                                    </ng-template>
+                                    
                                     <div *ngIf="answer?.user?._id == userId">
 
                                         <button *ngIf="!isEditing[answer._id!]; else saveButton"

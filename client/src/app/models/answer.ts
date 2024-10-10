@@ -6,7 +6,7 @@ import { User } from './user';
 export class Answer {
   _id?: string;
   content?: string;
-  likes?: [];
+  likes?: string[];
   user?: User;
   question?: Question;
   createdAt?: string;

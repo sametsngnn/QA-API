@@ -51,6 +51,25 @@ export class GetRequestService {
     
   }
 
+  likeAnswer(questionId:string,answerId:string,active:boolean):Observable<any>{
+    const token = this.authService.getToken()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer: ${token}`
+    },);
+    if(active){
+      return this.http.get(this.path + `questions/${questionId}/answers/${answerId}/undo_like`, { headers }).pipe(
+        catchError(this.handleError)
+      );
+    } else {
+      return this.http.get(this.path + `questions/${questionId}/answers/${answerId}/like`, { headers }).pipe(
+      catchError(this.handleError)
+    );
+    }
+    
+  }
+
+
+
   getAnswers(questionId: string):Observable<any>{
     return this.http.get(this.path + "questions/" + questionId + "/answers").pipe(
       catchError(this.handleError)
