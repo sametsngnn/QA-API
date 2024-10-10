@@ -66,20 +66,20 @@ textarea.form-control {
 
 .save-cancel-container {
     display: flex;
-    justify-content: flex-end; /* Butonları sağa hizala */
-    gap: 10px; /* Butonlar arasına boşluk ekle */
-    margin-top: 10px; /* Üst tarafa boşluk ekle */
+    justify-content: flex-end; 
+    gap: 10px; 
+    margin-top: 10px; 
 }
 
 textarea.form-control {
     min-height: 80px;
-    margin-bottom: 10px; /* Alt tarafa boşluk ekle */
+    margin-bottom: 10px; 
 }
 
 .answerActions {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap; /* İçeriğin taşmasını engelle */
+    flex-wrap: wrap; 
 }
 
