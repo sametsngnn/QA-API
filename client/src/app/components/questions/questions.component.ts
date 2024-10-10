@@ -22,7 +22,7 @@ export class QuestionsComponent implements OnInit {
     private logoutService: LogoutService,
     private postRequestService: PostRequestService,
     private deleteRequestService: DeleteRequestService,
-    private putRequestService:PutRequestService
+    private putRequestService: PutRequestService
   ) {}
   active: boolean = false;
   questionList: Question[];
@@ -46,7 +46,6 @@ export class QuestionsComponent implements OnInit {
   };
   isEditing: { [key: string]: boolean } = {};
   originalQuestions: { title: string; content: string; _id: string }[] = [];
-
 
   @ViewChild(NavComponent) navComponent: NavComponent;
 
@@ -121,10 +120,10 @@ export class QuestionsComponent implements OnInit {
       });
   }
 
-  editAQuestion(questionId:string){
-    this.putRequestService.editQuestion(questionId,this.editedQuestion).subscribe(data => {
-      
-    })
+  editAQuestion(questionId: string) {
+    this.putRequestService
+      .editQuestion(questionId, this.editedQuestion)
+      .subscribe((data) => {});
   }
 
   deleteOwnQuestion(questionId: string) {
@@ -151,31 +150,38 @@ export class QuestionsComponent implements OnInit {
   }
 
   toggleEditMode(questionId: string) {
-    const question = this.questionList.find(q => q._id === questionId);
+    const question = this.questionList.find((q) => q._id === questionId);
     if (question) {
       if (question.title && question.content && question._id) {
-        const original = { title: question.title, content: question.content, _id: question._id };
-        const index = this.originalQuestions.findIndex(q => q._id === questionId);
-  
+        const original = {
+          title: question.title,
+          content: question.content,
+          _id: question._id,
+        };
+        const index = this.originalQuestions.findIndex(
+          (q) => q._id === questionId
+        );
+
         if (index === -1) {
           this.originalQuestions.push(original);
         }
-  
+
         this.isEditing[questionId] = true;
       } else {
-        console.error("Question properties are undefined:", question);
+        console.error('Question properties are undefined:', question);
       }
     }
   }
-  
-  
 
   saveQuestion(questionId: string) {
     const question = this.questionList.find((q) => q._id === questionId);
     if (question) {
       this.isEditing[questionId] = false;
       this.putRequestService
-        .editQuestion(questionId, { title: question.title, content: question.content })
+        .editQuestion(questionId, {
+          title: question.title,
+          content: question.content,
+        })
         .subscribe(() => {
           this.isEditing[questionId] = false;
           this.ngOnInit();
@@ -184,22 +190,23 @@ export class QuestionsComponent implements OnInit {
   }
 
   cancelEdit(questionId: string) {
-    const originalQuestion = this.originalQuestions.find(q => q._id === questionId);
+    const originalQuestion = this.originalQuestions.find(
+      (q) => q._id === questionId
+    );
     if (originalQuestion) {
-      this.questionList = this.questionList.map(q => 
-        q._id === questionId 
-          ? { 
+      this.questionList = this.questionList.map((q) =>
+        q._id === questionId
+          ? {
               ...q,
-              title: originalQuestion.title, 
-              content: originalQuestion.content 
-            } 
+              title: originalQuestion.title,
+              content: originalQuestion.content,
+            }
           : q
       );
-      this.originalQuestions = this.originalQuestions.filter(q => q._id !== questionId); 
+      this.originalQuestions = this.originalQuestions.filter(
+        (q) => q._id !== questionId
+      );
     }
-    this.isEditing[questionId] = false; 
+    this.isEditing[questionId] = false;
   }
-  
-  
-  
 }

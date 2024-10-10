@@ -1,22 +1,13 @@
 <div class="container">
-    <!-- Search -->
-    <div class="rowClass row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8 mb-4">
-            <div class="input-group">
-                <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search" />
-            </div>
-        </div>
-    </div>
+    <div class="rowClass row justify-content-center"></div>
 
-    <!-- Answers -->
+
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
-            <div class="card mb-4">
+            <div class="card mb-4 question-card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ questionTitle }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        {{ questionOwner }}
-                    </h6>
+                    <h3 class="card-title">{{ questionTitle }}</h3>
+                    <h6 class="card-subtitle mb-2 text-muted font-italic">{{ questionOwner }}</h6>
                     <p class="card-text">{{ questionContent }}</p>
                 </div>
             </div>
@@ -27,20 +18,41 @@
                 <div class="card mb-4 answer-card">
                     <div class="card-body">
                         <div class="answerDiv">
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                {{ answer.content }}
-                            </h6>
+                            <ng-container *ngIf="!isEditing[answer._id!]; else editContent">
+                                <h6 class="card-subtitle mb-2">{{ answer.content }}</h6>
+                            </ng-container>
+                            <ng-template #editContent>
+                                <textarea class="form-control" [(ngModel)]="answer.content" rows="1"></textarea>
+                            </ng-template>
+
                             <div class="answerInf">
-                                <p class="text-muted">{{ answer?.user?.name || "Loading..." }}</p>  
+                                <p class="text-muted">{{ answer?.user?.name || "Loading..." }}</p>
                                 <div class="answerActions">
                                     <button class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
-                                        <i class="bi bi-hand-thumbs-up" ></i> Like |
-                                        {{ answer.likes?.length || 0}}
+                                        <i class="bi bi-hand-thumbs-up"></i> Like | {{ answer.likes?.length || 0 }}
                                     </button>
-                                    <button *ngIf="answer?.user?._id == userId" (click)="deleteOwnAnswer(answer._id!)" class="btn btn-sm btn-dark likeButton" [disabled]="!isLoggedIn">
-                                        <i class="bi bi-hand-thumbs-up" ></i> Delete
-                                    </button>
-                                    <p class="text-muted">{{ timeAgo(answer?.createdAt || '') }}</p>
+                                    <div *ngIf="answer?.user?._id == userId">
+
+                                        <button *ngIf="!isEditing[answer._id!]; else saveButton"
+                                            (click)="toggleEditMode(answer._id!)" class="btn btn-sm btn-dark">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </button>
+                                        <ng-template #saveButton>
+                                            <button (click)="deleteOwnAnswer(answer._id!)" class="btn btn-sm btn-dark">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                            <div class="save-cancel-container">
+                                                <button class="btn btn-sm btn-dark" (click)="cancelEdit(answer._id!)">
+                                                    Cancel
+                                                </button>
+                                                <button class="btn btn-dark btn-sm" (click)="saveAnswer(answer._id!)">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </ng-template>
+
+                                    </div>
+                                    <p class="text-muted time-text">{{ timeAgo(answer?.createdAt || "") }}</p>
                                 </div>
                             </div>
                         </div>
@@ -57,17 +69,15 @@
             </div>
         </ng-template>
 
-        <!-- Yorum Yapma Alanı -->
         <div *ngIf="isLoggedIn" class="col-12 col-md-10 col-lg-8">
             <h5 class="mt-4">Ask a Answer:</h5>
             <form (submit)="answerAQuestion()">
                 <div class="input-group mb-3">
-                    <textarea [(ngModel)]="answerObject.content" class="form-control" rows="3" required name="answer" placeholder="Write your answer here..."></textarea>
+                    <textarea [(ngModel)]="answerObject.content" class="form-control" rows="3" required name="answer"
+                        placeholder="Write your answer here..."></textarea>
                     <button class="btn btn-dark" type="submit">Submit</button>
                 </div>
             </form>
         </div>
     </div>
-
-    <!-- Answer -->
 </div>

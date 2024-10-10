@@ -2,17 +2,22 @@
     padding-top: 20px;
 }
 
-.button {
-    margin-right: 2px;
+.question-card {
+    border-left: 5px solid #343a40;
+    padding: 10px;
+    transition: box-shadow 0.3s ease-in-out;
 }
 
-.pagMain {
-    margin-bottom: 20px;
+.question-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.likeButton {
-    color: rgb(255, 255, 255);
-    background-color: rgb(0, 0, 0);
+.answer-card {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.answer-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .answerDiv {
@@ -21,43 +26,60 @@
     align-items: center;
 }
 
-.answerDiv h6 {
-    margin: 0;
-    flex: 1; /* Eşit şekilde genişlet */
-}
-
 .answerInf {
-    display: flex; /* Flex kullanarak isim ve butonu yan yana diz */
+    display: flex;
     align-items: center;
 }
 
 .answerInf p {
     margin: 0;
-    margin-right: 10px; /* Buton ile isim arasında boşluk bırak */
+    margin-right: 10px;
 }
 
 .answerActions {
     display: flex;
-    align-items: center; /* Buton ve zaman metnini yan yana hizala */
+    align-items: center;
 }
 
-.answer-card {
-    transition: box-shadow 0.3s; /* Gölge geçişi ekle */
+.likeButton {
+    color: #fff;
+    background-color: #343a40;
 }
 
-.answer-card:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Hover efekti için gölge */
+.time-text {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    color: #6c757d;
 }
 
-.text-muted {
-    font-size: 0.9rem; /* Zaman metninin boyutunu küçült */
+.font-italic {
+    font-style: italic;
 }
 
-input[type="text"],
 textarea {
-    resize: none; /* Textarea'nın boyutunu değiştirmeyi engelle */
+    resize: none;
 }
 
-input[type="text"] {
-    height: 38px; /* Arama çubuğunun boyutu */
+textarea.form-control {
+    min-height: 80px;
 }
+
+.save-cancel-container {
+    display: flex;
+    justify-content: flex-end; /* Butonları sağa hizala */
+    gap: 10px; /* Butonlar arasına boşluk ekle */
+    margin-top: 10px; /* Üst tarafa boşluk ekle */
+}
+
+textarea.form-control {
+    min-height: 80px;
+    margin-bottom: 10px; /* Alt tarafa boşluk ekle */
+}
+
+.answerActions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* İçeriğin taşmasını engelle */
+}
+
