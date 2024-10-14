@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Answer } from '../../models/answer';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,18 @@ export class PutRequestService {
     );
   }
 
+  editProfile(userInf:{}){
+    const token = this.authService.getToken()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer: ${token}`
+    },);
+
+    return this.http.put(this.path + `/auth/edit` ,userInf ,{ headers })
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
@@ -46,4 +59,6 @@ export class PutRequestService {
     }
     return throwError(errorMessage);
   }
+
+  
 }

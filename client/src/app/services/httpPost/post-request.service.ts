@@ -45,6 +45,21 @@ export class PostRequestService {
     );
   }
 
+  uploadProfile(formData: FormData){
+    const token = this.authService.getToken()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer: ${token}`
+    },);
+
+    return this.http.post(this.path+ "auth/upload",formData,{headers})
+    .pipe(
+      catchError(err => {
+        this.handleError(err);
+        return throwError(err); 
+      })
+    );
+  }
+
 
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';

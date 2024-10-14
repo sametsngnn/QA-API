@@ -1,6 +1,26 @@
-<div>
-    <h2>Hoş geldiniz!</h2>
-    <p>Profilinizi düzenlemek için <a routerLink="/profile-edit">buraya tıklayın</a>.</p>
-</div>
+<main class="form-editProfile">
+    <div class="headerSide">
+        <div class="imgUpload">
+            <img class="rounded-circle me-3" src="http://localhost:5000/uploads/{{ userProfileImage }}" alt=""
+            />
+        </div>
+        <label class="h5 fw-normal">{{ userName }}</label>
+    </div>
+    
+    <input type="file" id="profileImageUpload" (change)="onFileSelected($event)" />
+    <button (click)="uploadProfileImage()">Save Profile Image</button>
+    
+    <form (ngSubmit)="editProfile()" style="margin-top: 15px;">
+        <h1 class="h3 mb-3 fw-normal" style="margin-bottom: 10px;">Edit Your Profile</h1>
 
-  
+        <div class="form-floating">
+            <input [(ngModel)]="editedProfile.editedUserName" name="userName" class="form-control" id="floatingInput" type="text" placeholder="{{userName}}" required>
+            <label for="floatingInput">{{userName}}</label>
+        </div>
+        <div class="form-floating">
+            <input [(ngModel)]="editedProfile.editedUserEmail" name="userEmail" class="form-control" id="floatingEmail" type="email" placeholder="{{userEmail}}" required>
+            <label for="floatingEmail">{{userEmail}}</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-outline-success" type="submit">Save Changes</button>
+    </form>
+</main>

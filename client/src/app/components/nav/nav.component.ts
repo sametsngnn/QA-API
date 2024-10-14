@@ -30,7 +30,6 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Login durumunu gözlemle
     this.authService.loggedIn$
       .pipe(
         switchMap((isLoggedIn) => {

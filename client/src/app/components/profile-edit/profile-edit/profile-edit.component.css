@@ -1,0 +1,68 @@
+.form-editProfile {
+  width: 100%;
+  max-width: 430px;
+  padding: 15px;
+  padding-top: 13rem;
+  margin: auto;
+}
+
+.form-editProfile .checkbox {
+  font-weight: 400;
+}
+
+.form-editProfile .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-editProfile input[type="name"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-editProfile input[type="email"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.headerSide {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.imgUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.imgUpload img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+.file-input {
+  display: none; 
+}
+
+.imgUpload input[type="file"] {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.form-editProfile h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-editProfile .form-floating input {
+  height: 50px;
+  padding: 10px;
+}
+
+.form-editProfile .form-floating label {
+  padding: 0 10px;
+}
