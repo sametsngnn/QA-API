@@ -10,38 +10,37 @@ import { User, UserResponse } from '../../models/user';
 export class UsersComponent implements OnInit {
   constructor(private getRequestService: GetRequestService) {}
 
-  page:number
+  page: number;
   limit: number = 5;
-  searchBy:string
+  searchBy: string;
   userList: User[] = [];
   totalPageNumber: number;
   totalPageNumberArray: number[] = [];
   totalUser: number;
 
   ngOnInit(): void {
-    this.initializeData()
+    this.initializeData();
   }
-
 
   initializeData() {
-    this.getRequestService.getUsers(this.page,this.limit,this.searchBy).subscribe((data: UserResponse) => {
-      this.totalUser = data.total
-      this.userList = data.data;
-      this.totalPageNumber = Math.ceil(this.totalUser / this.limit);
-      this.totalPageNumberArray = Array(this.totalPageNumber)
+    this.getRequestService
+      .getUsers(this.page, this.limit, this.searchBy)
+      .subscribe((data: UserResponse) => {
+        this.totalUser = data.total;
+        this.userList = data.data;
+        this.totalPageNumber = Math.ceil(this.totalUser / this.limit);
+        this.totalPageNumberArray = Array(this.totalPageNumber)
           .fill(0)
           .map((x, i) => i + 1);
-    });
+      });
   }
 
-  triggerFunction(){
-    this.initializeData()
+  triggerFunction() {
+    this.initializeData();
   }
 
   changePageNumber(value: number) {
     this.page = value;
-    this.triggerFunction() 
+    this.triggerFunction();
   }
-
-
 }

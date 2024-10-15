@@ -66,7 +66,6 @@ export class AuthService {
   handleError(error: HttpErrorResponse) {
     console.log(error.status)
     if (error.status === 401) {
-      // 401 Unauthorized hatasını yakala
       console.error('Unauthorized access - possibly invalid token');
       this.logout();
       this.alertifyService.error("Unauthorized access - possibly invalid token")

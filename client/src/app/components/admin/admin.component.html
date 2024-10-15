@@ -1,1 +1,58 @@
-<p>admin works!</p>
+<div class="container">
+
+    <div class="rowClass row justify-content-center">
+        <h4 class="h4">Admin Page</h4>
+        <div class="col-12 col-md-10 col-lg-8 mb-4">
+            <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search"
+                [(ngModel)]="searchBy" (input)="triggerFunction()" />
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center">
+        <div *ngFor="let user of userList" class="col-12 col-md-10 col-lg-8">
+            <div class="card mb-4" *ngIf="user.role == 'user'">
+                <div class="card-body">
+                    <div class="cardBody">
+                        <div class="d-flex">
+                        <img class="rounded-circle me-3" src="http://localhost:5000/uploads/{{user.profile_image}}"
+                            alt="" style="width: 60px; height: 60px;">
+                        <div>
+                            <h5 class="card-title">{{ user.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ user._id }}</h6>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button type="button" class="btn" (click)="deleteAccount(user._id)">Delete Account</button>
+                        <button type="button" class="btn" (click)="blockAccount(user._id)">Block Account</button>
+                    </div>
+                    
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="pagMain row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center">
+            <div *ngFor="let i of totalPageNumberArray">
+                <button class="btn btn-dark me-2" type="button" (click)="changePageNumber(i)">{{i}}</button>
+            </div>
+
+            <div class="align-items-center d-flex">
+                <p style="margin: 0; margin-right: 4px">Per Page:</p>
+                <select [(ngModel)]="limit" (change)="triggerFunction()">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+</div>

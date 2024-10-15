@@ -35,3 +35,7 @@
     color: black;
   }
 
+  a:hover {
+    cursor: pointer;
+}
+
